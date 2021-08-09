@@ -10,16 +10,20 @@ import {
   Select 
 } from '@material-ui/core';
 
+import PlaceDetails from 'components/PlaceDetails/PlaceDetails';
+
 import useStyles from 'components/List/styles';
 
-const List: FC = () => {
+interface ListProps {
+  places: any[];
+}
+
+const List: FC<ListProps> = ({ places }) => {
   const classes = useStyles();
 
   const [type, setType] = useState('restaurants');
 
   const [rating, setRating] = useState(0);
-
-  const places = [{ id: 1,  name: 'Cool place' }];
 
   const handleTypeChange = (event: ChangeEvent<any>) => {
     setType(event.target.value);
@@ -55,9 +59,9 @@ const List: FC = () => {
       </FormControl>
 
       <Grid className={classes.list} container spacing={3}>
-        {places?.map((place) => (
-          <Grid item key={place.id} xs={12}>
-            {place.name}
+        {places?.map((place, index) => (
+          <Grid item key={index} xs={12}>
+            <PlaceDetails place={place} />
           </Grid>
         ))}
       </Grid>

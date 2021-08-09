@@ -15,10 +15,10 @@ const http = axios.create({
 export const getPlaces = async (ne: Coords, sw: Coords) => {
   const response = await http.get('/restaurants/list-in-boundary', {
     params: {
-      bl_latitude: sw.lat,
-      tr_latitude: ne.lat,
-      bl_longitude: sw.lng,
-      tr_longitude: ne.lng,
+      bl_latitude: sw?.lat ?? 0,
+      tr_latitude: ne?.lat ?? 0,
+      bl_longitude: sw?.lng ?? 0,
+      tr_longitude: ne?.lng ?? 0,
     },
   });
   
