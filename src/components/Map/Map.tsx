@@ -1,18 +1,24 @@
-import { FC } from 'react';
+import { FC, Dispatch, SetStateAction } from 'react';
 
-import GoogleMap from 'google-map-react';
+import GoogleMap, { ChangeEventValue } from 'google-map-react';
 import { Paper, Typography, useMediaQuery } from '@material-ui/core';
 import LocationIcon from '@material-ui/icons/LocationOnOutlined';
 import { Rating } from '@material-ui/lab';
 
 import useStyles from 'components/Map/styles';
 
-const Map: FC = () => {
+interface MapProps {
+  onChange: (event: ChangeEventValue) => void;
+  coordinates: any;
+}
+
+const Map: FC<MapProps> = ({
+  onChange,
+  coordinates
+}) => {
   const classes = useStyles();
 
-  const isMobile = useMediaQuery('(min-width: 600px)');
-
-  const coordinates = { lat: 0, lng: 0 };
+  const isMobile = useMediaQuery('(min-width:600px)');
 
   return (
     <div className={classes.mapContainer}>
@@ -23,7 +29,7 @@ const Map: FC = () => {
         defaultZoom={14}
         margin={[50, 50, 50, 50]}
         options={{}}
-        onChange={() => {}}
+        onChange={onChange}
         onChildClick={() => {}}
       >
 
