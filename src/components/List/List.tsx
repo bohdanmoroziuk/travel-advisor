@@ -59,8 +59,8 @@ const List: FC<ListProps> = ({ places }) => {
       </FormControl>
 
       <Grid className={classes.list} container spacing={3}>
-        {places?.map((place, index) => (
-          <Grid item key={index} xs={12}>
+        {places?.map((place) => (
+          <Grid item key={place.id} xs={12}>
             <PlaceDetails place={place} />
           </Grid>
         ))}

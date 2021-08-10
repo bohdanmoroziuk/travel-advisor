@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { nanoid } from 'nanoid';
 import { Coords } from 'google-map-react';
 
 const key = process.env.REACT_APP_RAPIDAPI_KEY;
@@ -21,6 +22,11 @@ export const getPlaces = async (ne: Coords, sw: Coords) => {
       tr_longitude: ne?.lng ?? 0,
     },
   });
+
+  const places = response.data.data.map((item: any) => ({
+    id: nanoid(),
+    ...item,
+  }));
   
-  return response.data.data;
+  return places;
 };

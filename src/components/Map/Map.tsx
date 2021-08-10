@@ -35,7 +35,7 @@ const Map: FC<MapProps> = ({
             place={place}
             lat={place.latitude}
             lng={place.longitude}
-            key={place.name}
+            key={place.id}
           />
         ))}
       </GoogleMap>
