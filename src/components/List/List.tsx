@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC } from 'react';
 
 import { 
   CircularProgress, 
@@ -17,22 +17,21 @@ import useStyles from 'components/List/styles';
 interface ListProps {
   places: any[];
   isLoading: boolean;
+  type: string;
+  rating: number;
+  onTypeChange: (event: ChangeEvent<any>) => void;
+  onRatingChange: (event: ChangeEvent<any>) => void;
 }
 
-const List: FC<ListProps> = ({ places, isLoading }) => {
+const List: FC<ListProps> = ({ 
+  places, 
+  isLoading,
+  type,
+  rating,
+  onTypeChange,
+  onRatingChange
+}) => {
   const classes = useStyles();
-
-  const [type, setType] = useState('restaurants');
-
-  const [rating, setRating] = useState(0);
-
-  const handleTypeChange = (event: ChangeEvent<any>) => {
-    setType(event.target.value);
-  };
-
-  const handleRatingChange = (event: ChangeEvent<any>) => {
-    setRating(event.target.value);
-  };
 
   return (
     <div className={classes.container}>
@@ -48,7 +47,7 @@ const List: FC<ListProps> = ({ places, isLoading }) => {
         <>
           <FormControl className={classes.formControl}>
             <InputLabel>Type</InputLabel>
-            <Select value={type} onChange={handleTypeChange}>
+            <Select value={type} onChange={onTypeChange}>
               <MenuItem value="restaurants">Restaurants</MenuItem>
               <MenuItem value="hotels">Hotels</MenuItem>
               <MenuItem value="attractions">Attractions</MenuItem>
@@ -57,7 +56,7 @@ const List: FC<ListProps> = ({ places, isLoading }) => {
 
           <FormControl className={classes.formControl}>
             <InputLabel>Rating</InputLabel>
-            <Select value={rating} onChange={handleRatingChange}>
+            <Select value={rating} onChange={onRatingChange}>
               <MenuItem value={0}>All</MenuItem>
               <MenuItem value={3}>Above 3.0</MenuItem>
               <MenuItem value={4}>Above 4.0</MenuItem>

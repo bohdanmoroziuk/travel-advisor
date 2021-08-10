@@ -13,8 +13,8 @@ const http = axios.create({
   },
 });
 
-export const getPlaces = async (ne: Coords, sw: Coords) => {
-  const response = await http.get('/restaurants/list-in-boundary', {
+export const getPlaces = async (type: string, ne: Coords, sw: Coords) => {
+  const response = await http.get(`/${type}/list-in-boundary`, {
     params: {
       bl_latitude: sw?.lat ?? 0,
       tr_latitude: ne?.lat ?? 0,
