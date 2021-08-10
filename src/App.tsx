@@ -45,6 +45,7 @@ const App: FC = () => {
           <Map
             onChange={handleMapChange}
             coordinates={coordinates}
+            places={places}
           />
         </Grid>
       </Grid>

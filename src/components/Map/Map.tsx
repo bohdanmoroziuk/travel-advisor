@@ -1,24 +1,22 @@
-import { FC, Dispatch, SetStateAction } from 'react';
+import { FC } from 'react';
 
 import GoogleMap, { ChangeEventValue } from 'google-map-react';
-import { Paper, Typography, useMediaQuery } from '@material-ui/core';
-import LocationIcon from '@material-ui/icons/LocationOnOutlined';
-import { Rating } from '@material-ui/lab';
 
+import PlaceMarker from 'components/PlaceMarker/PlaceMarker';
 import useStyles from 'components/Map/styles';
 
 interface MapProps {
   onChange: (event: ChangeEventValue) => void;
   coordinates: any;
+  places: any[];
 }
 
 const Map: FC<MapProps> = ({
   onChange,
-  coordinates
+  coordinates,
+  places,
 }) => {
   const classes = useStyles();
-
-  const isMobile = useMediaQuery('(min-width:600px)');
 
   return (
     <div className={classes.mapContainer}>
@@ -32,7 +30,14 @@ const Map: FC<MapProps> = ({
         onChange={onChange}
         onChildClick={() => {}}
       >
-
+        {places?.map((place) => (
+          <PlaceMarker
+            place={place}
+            lat={place.latitude}
+            lng={place.longitude}
+            key={place.name}
+          />
+        ))}
       </GoogleMap>
     </div>
   );
