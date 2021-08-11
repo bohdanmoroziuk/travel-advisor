@@ -23,10 +23,19 @@ export const getPlaces = async (type: string, ne: Coords, sw: Coords) => {
     },
   });
 
-  const places = response.data.data.map((item: any) => ({
+  const isValid = (place: any) => (
+    place.name &&
+    place.num_reviews > 0
+  );
+
+  const addId = (place: any) => ({
     id: nanoid(),
-    ...item,
-  }));
+    ...place,
+  });
+
+  const places = response.data.data
+    .filter(isValid)
+    .map(addId);
   
   return places;
 };
