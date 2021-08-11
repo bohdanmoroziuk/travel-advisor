@@ -5,6 +5,7 @@ import GoogleMap, { ChangeEventValue } from 'google-map-react';
 import WeatherMarker from 'components/WeatherMarker/WeatherMarker';
 import PlaceMarker from 'components/PlaceMarker/PlaceMarker';
 import useStyles from 'components/Map/styles';
+import theme from 'components/Map/theme';
 
 import config from 'config';
 
@@ -31,7 +32,11 @@ const Map: FC<MapProps> = ({
         center={coordinates}
         defaultZoom={14}
         margin={[50, 50, 50, 50]}
-        options={{}}
+        options={{
+          disableDefaultUI: true,
+          zoomControl: true,
+          styles: theme,
+        }}
         onChange={onChange}
         onChildClick={() => {}}
       >
