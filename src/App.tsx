@@ -53,21 +53,23 @@ const App: FC = () => {
   }, [rating, places]);
 
   useEffect(() => {
-    setIsLoading(true);
+    if (bounds) {
+      setIsLoading(true);
 
-    getPlaces(type, bounds.ne, bounds.sw)
-      .then(setPlaces)
-      .catch(console.log)
-      .finally(() => {
-        setIsLoading(false);
-        setFilteredPlaces([]);
-      });
-  }, [coordinates, bounds, type]);
+      getPlaces(type, bounds.ne, bounds.sw)
+        .then(setPlaces)
+        .catch(console.log)
+        .finally(() => {
+          setIsLoading(false);
+          setFilteredPlaces([]);
+        });
+    }
+  }, [bounds, type]);
 
   return (
     <>
       <CssBaseline />
-      <Header />
+      <Header setCoordinates={setCoordinates} />
       <Grid container spacing={3} style={{ width: '100%' }}>
         <Grid item xs={12} md={4}>
           <List
