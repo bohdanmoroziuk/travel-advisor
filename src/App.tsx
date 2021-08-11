@@ -8,6 +8,7 @@ import List from 'components/List/List';
 import Header from 'components/Header/Header';
 
 import { getPlaces } from 'services/places';
+import { getWeather } from 'services/weather';
 
 const App: FC = () => {
   const [places, setPlaces] = useState<any>([]);
@@ -17,6 +18,7 @@ const App: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [type, setType] = useState('restaurants');
   const [rating, setRating] = useState(0);
+  const [weather, setWeather] = useState<any>({});
 
   console.log(rating);
 
@@ -43,14 +45,17 @@ const App: FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log('rating change', rating);
-
     const newFilteredPlaces = places.filter((place: any) => (
       parseFloat(place.rating) > rating
     ));
 
     setFilteredPlaces(newFilteredPlaces);
   }, [rating, places]);
+
+  useEffect(() => {
+    getWeather(coordinates.lat, coordinates.lng)
+      .then(setWeather);
+  }, [coordinates]);
 
   useEffect(() => {
     if (bounds) {
@@ -85,6 +90,7 @@ const App: FC = () => {
           <Map
             onChange={handleMapChange}
             coordinates={coordinates}
+            weather={weather}
             places={filteredPlaces.length ? filteredPlaces : places}
           />
         </Grid>

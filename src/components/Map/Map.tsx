@@ -2,26 +2,31 @@ import { FC } from 'react';
 
 import GoogleMap, { ChangeEventValue } from 'google-map-react';
 
+import WeatherMarker from 'components/WeatherMarker/WeatherMarker';
 import PlaceMarker from 'components/PlaceMarker/PlaceMarker';
 import useStyles from 'components/Map/styles';
+
+import config from 'config';
 
 interface MapProps {
   onChange: (event: ChangeEventValue) => void;
   coordinates: any;
   places: any[];
+  weather: any;
 }
 
 const Map: FC<MapProps> = ({
   onChange,
   coordinates,
   places,
+  weather,
 }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.mapContainer}>
       <GoogleMap
-        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API_KEY ?? '' }}
+        bootstrapURLKeys={{ key: config.googleMapApiKey ?? '' }}
         defaultCenter={coordinates}
         center={coordinates}
         defaultZoom={14}
@@ -36,6 +41,14 @@ const Map: FC<MapProps> = ({
             lat={place.latitude}
             lng={place.longitude}
             key={place.id}
+          />
+        ))}
+        {weather?.list?.map((data: any, index: number) => (
+          <WeatherMarker
+            key={index}
+            lat={data.coord.lat}
+            lng={data.coord.lon}
+            icon={data.weather[0].icon}
           />
         ))}
       </GoogleMap>
