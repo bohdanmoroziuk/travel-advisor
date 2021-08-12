@@ -41,7 +41,7 @@ const PlaceMarker: FC<PlaceMarkerProps> = ({ place }) => {
           />
           <Rating 
             size="small"
-            value={place.rating}
+            value={Number(place.rating)}
             readOnly
           />
         </Paper>

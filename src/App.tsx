@@ -53,8 +53,11 @@ const App: FC = () => {
   }, [rating, places]);
 
   useEffect(() => {
-    getWeather(coordinates.lat, coordinates.lng)
-      .then(setWeather);
+    if (coordinates.lat && coordinates.lng) {
+      getWeather(coordinates.lat, coordinates.lng)
+        .then(setWeather)
+        .catch(console.log);
+    }
   }, [coordinates]);
 
   useEffect(() => {
