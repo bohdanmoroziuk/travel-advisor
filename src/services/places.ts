@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import { Coords } from 'google-map-react';
 
 import config from 'config';
+import { Place, PlaceWithId } from 'types';
 
 const http = axios.create({
   baseURL: 'https://travel-advisor.p.rapidapi.com',
@@ -12,7 +13,7 @@ const http = axios.create({
   },
 });
 
-export const getPlaces = async (type: string, ne: Coords, sw: Coords) => {
+export const getPlaces = async (type: string, ne: Coords, sw: Coords): Promise<PlaceWithId[]> => {
   const response = await http.get(`/${type}/list-in-boundary`, {
     params: {
       bl_latitude: sw?.lat ?? 0,
@@ -22,12 +23,12 @@ export const getPlaces = async (type: string, ne: Coords, sw: Coords) => {
     },
   });
 
-  const isValid = (place: any) => (
+  const isValid = (place: Place) => (
     place.name &&
-    place.num_reviews > 0
+    Number(place.num_reviews) > 0
   );
 
-  const addId = (place: any) => ({
+  const addId = (place: Place): PlaceWithId => ({
     id: nanoid(),
     ...place,
   });

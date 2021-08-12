@@ -10,17 +10,17 @@ import Header from 'components/Header/Header';
 import { getPlaces } from 'services/places';
 import { getWeather } from 'services/weather';
 
+import { PlaceWithId, Weather } from 'types';
+
 const App: FC = () => {
-  const [places, setPlaces] = useState<any>([]);
-  const [filteredPlaces, setFilteredPlaces] = useState<any>([]);
+  const [places, setPlaces] = useState<PlaceWithId[]>([]);
+  const [filteredPlaces, setFilteredPlaces] = useState<PlaceWithId[]>([]);
   const [bounds, setBounds] = useState<Bounds>({} as Bounds);
   const [coordinates, setCoordinates] = useState<Coords>({} as Coords);
   const [isLoading, setIsLoading] = useState(false);
   const [type, setType] = useState('restaurants');
   const [rating, setRating] = useState(0);
-  const [weather, setWeather] = useState<any>({});
-
-  console.log(rating);
+  const [weather, setWeather] = useState<Weather>({} as Weather);
 
   const handleTypeChange = (event: ChangeEvent<any>) => {
     setType(event.target.value);

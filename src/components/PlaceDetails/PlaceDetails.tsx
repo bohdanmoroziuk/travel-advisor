@@ -15,16 +15,10 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import Rating from '@material-ui/lab/Rating';
 
 import useStyles from 'components/PlaceDetails/styles';
+import { PlaceWithId, Award } from 'types';
 
 interface PlaceDetailsProps {
-  place: any;
-}
-
-interface Award {
-  display_name: string;
-  images: {
-    small: string;
-  };
+  place: PlaceWithId;
 }
 
 const fallbackImageUrl = 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg';
@@ -48,7 +42,7 @@ const PlaceDetails: FC<PlaceDetailsProps> = ({ place }) => {
           {place.name}
         </Typography>
         <Box display="flex" justifyContent="space-between">
-          <Rating value={place.rating} readOnly />
+          <Rating value={Number(place.rating)} readOnly />
           <Typography variant="subtitle1" gutterBottom>
             out of {place.num_reviews} reviews
           </Typography>
@@ -83,7 +77,7 @@ const PlaceDetails: FC<PlaceDetailsProps> = ({ place }) => {
             </Typography>
           </Box>
         ))}
-        {place?.cuisine?.map(({ name }: { name: string }) => (
+        {place?.cuisine?.map(({ name }) => (
           <Chip
             className={classes.chip} 
             size="small" 

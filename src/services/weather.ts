@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import config from 'config';
+import { Weather } from 'types';
 
 const http = axios.create({
   baseURL: 'https://community-open-weather-map.p.rapidapi.com',
@@ -10,7 +11,7 @@ const http = axios.create({
   }
 });
 
-export const getWeather = async (lat: number, lon: number) => {
+export const getWeather = async (lat: number, lon: number): Promise<Weather> => {
   const response = await http.get('/find', {
     params: {
       lat,

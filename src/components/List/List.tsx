@@ -11,11 +11,11 @@ import {
 } from '@material-ui/core';
 
 import PlaceDetails from 'components/PlaceDetails/PlaceDetails';
-
 import useStyles from 'components/List/styles';
+import { PlaceWithId } from 'types';
 
 interface ListProps {
-  places: any[];
+  places: PlaceWithId[];
   isLoading: boolean;
   type: string;
   rating: number;

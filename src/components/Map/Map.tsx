@@ -8,12 +8,13 @@ import useStyles from 'components/Map/styles';
 import theme from 'components/Map/theme';
 
 import config from 'config';
+import { PlaceWithId, Weather } from 'types';
 
 interface MapProps {
   onChange: (event: ChangeEventValue) => void;
   coordinates: any;
-  places: any[];
-  weather: any;
+  places: PlaceWithId[];
+  weather: Weather;
 }
 
 const Map: FC<MapProps> = ({
@@ -43,8 +44,8 @@ const Map: FC<MapProps> = ({
         {places?.map((place) => (
           <PlaceMarker
             place={place}
-            lat={place.latitude}
-            lng={place.longitude}
+            lat={Number(place.latitude)}
+            lng={Number(place.longitude)}
             key={place.id}
           />
         ))}
