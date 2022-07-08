@@ -1,6 +1,7 @@
 {
   "name": "travel-advisor",
   "version": "0.1.0",
+  "description": "An app for finding restaurants, hotels and attractions around you",
   "private": true,
   "dependencies": {
     "@fontsource/roboto": "^4.5.0",
